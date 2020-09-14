@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [res, setRes] = useState("initial state");
+
+  const getAPI = async () => {
+    const result = await fetch("http://localhost:3001/coins/markets");
+    console.log("result", result);
+    const data = await result.json();
+    console.log("data", data);
+    setRes(JSON.stringify(data));
+  };
+  useEffect(() => {
+    getAPI();
+  }, []);
+
+  return <div className="App">{res}</div>;
 }
 
 export default App;
