@@ -9,7 +9,7 @@ function App() {
     "no response"
   );
 
-  const getFirstAPI = async () => {
+  const getExternalAPI = async () => {
     console.log("calling external api from client");
     const result = await fetch("http://localhost:3001/api_to_external_website");
     console.log("result", result);
@@ -18,9 +18,9 @@ function App() {
     setExternalServerResponse(JSON.stringify(data[0]));
   };
 
-  const getSecondAPI = async () => {
+  const getLocalHostAPI = async () => {
     console.log("calling localhost api from client");
-    const result = await fetch("/localhostapi/users");
+    const result = await fetch("/localhostapi");
     console.log("result", result);
     const data = await result.json();
     console.log("data", data);
@@ -28,8 +28,8 @@ function App() {
   };
 
   useEffect(() => {
-    getFirstAPI();
-    getSecondAPI();
+    getExternalAPI();
+    getLocalHostAPI();
   }, []);
 
   return (
